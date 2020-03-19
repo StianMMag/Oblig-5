@@ -53,26 +53,17 @@ public class UniverseJSONRepository implements IUniverseRepository {
                 60225, sun,"https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/" +
                 "Neptune_Full_%28cropped%29.jpg/480px-Neptune_Full_%28cropped%29.jpg"));
 
-        try{
-            String jsonText = objectMapper.writeValueAsString(new PlanetSystem("Solar System", sun, planets,
-                    "https://upload.wikimedia.org/wikipedia/commons/c/c3/Solar_sys8.jpg"));
-            System.out.println("JSON objekt: " + jsonText);
-            PlanetSystem solarSystem = objectMapper.readValue(jsonText, PlanetSystem.class);
-            System.out.println("Konvertert fra JSON: " + solarSystem);
-            
-            planetSystems.add(solarSystem);
+        PlanetSystem solarSystem = new PlanetSystem("Solar System", sun, planets,
+                "https://upload.wikimedia.org/wikipedia/commons/c/c3/Solar_sys8.jpg");
 
-            writeToJson("solarsystem.json", planetSystems);
+        planetSystems.add(solarSystem);
+        System.out.println(planetSystems);
 
-            List<PlanetSystem> solarSystemFromFile = readFromJson("solarsystem.json");
+        writeToJson("solarsystem.json", planetSystems);
 
-            System.out.println("*****List read from file*****");
-            for (PlanetSystem aPlanetSystem : solarSystemFromFile) {
-                System.out.println(aPlanetSystem);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<PlanetSystem> newList = readFromJson("solarsystem.json");
+        System.out.println("*****READ FROM FILE*****");
+        System.out.println(newList);
     }
 
     public static void writeToJson(String fileName, ArrayList<PlanetSystem> planetSystems) {
